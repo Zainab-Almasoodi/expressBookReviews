@@ -39,6 +39,7 @@ let myPromise = new Promise((resolve,reject) => {
 
 
     myPromise.then((successMessage) => {
+
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
   //Write your code here
@@ -48,6 +49,7 @@ console.log("From Callback " + successMessage)
   })
 
   myPromise.then((successMessage) => {
+
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
   //Write your code here
@@ -58,7 +60,8 @@ res.send(books[isbn])
 })
 
 
-  
+   myPromise.then((successMessage) => {
+
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
   //Write your code here
@@ -66,9 +69,13 @@ public_users.get('/author/:author',function (req, res) {
   const author = req.params.author;
   const booksByAuthor = Object.values(books).filter((book) =>{return book.author === author});
   res.send(booksByAuthor);
-
-
 });
+
+console.log("From Callback " + successMessage)
+})
+
+
+myPromise.then((successMessage) => {
 
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
@@ -78,6 +85,9 @@ public_users.get('/title/:title',function (req, res) {
   res.send(booksByTitle);
 
 });
+
+console.log("From Callback " + successMessage)
+})
 
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
